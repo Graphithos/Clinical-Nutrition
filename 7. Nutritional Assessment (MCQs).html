@@ -1,0 +1,1226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MCQs on Nutritional Assessment</title>
+    <style>
+        :root {
+            --bg-color: #f5f7fa;
+            --container-bg: white;
+            --text-color: #333;
+            --border-color: #ddd;
+            --primary-color: #3498db;
+            --header-color: #2c3e50;
+            --secondary-text: #7f8c8d;
+            --progress-bg: #ecf0f1;
+            --question-bg: #f8f9fa;
+            --option-bg: #fff;
+            --option-hover: #f1f8ff;
+            --option-selected: #d1ecf1;
+            --correct-bg: #d4edda;
+            --correct-border: #28a745;
+            --incorrect-bg: #f8d7da;
+            --incorrect-border: #dc3545;
+            --button-bg: #3498db;
+            --button-hover: #2980b9;
+            --button-disabled: #bdc3c7;
+            --restart-bg: #2ecc71;
+            --restart-hover: #27ae60;
+            --review-bg: #f39c12;
+            --review-hover: #e67e22;
+            --toggle-bg: #ecf0f1;
+            --toggle-slider: white;
+            --toggle-text: #7f8c8d;
+        }
+
+        .dark-mode {
+            --bg-color: #1a1a2e;
+            --container-bg: #16213e;
+            --text-color: #e6e6e6;
+            --border-color: #394867;
+            --primary-color: #4cc9f0;
+            --header-color: #e6e6e6;
+            --secondary-text: #a9a9a9;
+            --progress-bg: #394867;
+            --question-bg: #1f4068;
+            --option-bg: #16213e;
+            --option-hover: #1f4068;
+            --option-selected: #1f4068;
+            --correct-bg: #2d5a2d;
+            --correct-border: #4caf50;
+            --incorrect-bg: #5a2d2d;
+            --incorrect-border: #f44336;
+            --button-bg: #4cc9f0;
+            --button-hover: #3aa8d0;
+            --button-disabled: #5d6d7e;
+            --restart-bg: #2ecc71;
+            --restart-hover: #27ae60;
+            --review-bg: #f39c12;
+            --review-hover: #e67e22;
+            --toggle-bg: #394867;
+            --toggle-slider: #4cc9f0;
+            --toggle-text: #e6e6e6;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding: 20px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--container-bg);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s, box-shadow 0.3s;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid var(--primary-color);
+            position: relative;
+        }
+        h1 {
+            color: var(--header-color);
+            margin-bottom: 5px;
+            font-size: 24px;
+            transition: color 0.3s;
+        }
+        .author {
+            color: var(--secondary-text);
+            font-style: italic;
+            margin-bottom: 10px;
+            transition: color 0.3s;
+        }
+        .description {
+            color: var(--secondary-text);
+            margin-bottom: 20px;
+            transition: color 0.3s;
+        }
+        .theme-toggle {
+            position: absolute;
+            top: 35px;
+            right: 0;
+            display: flex;
+            align-items: center;
+        }
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 120px;
+            height: 34px;
+        }
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: var(--toggle-bg);
+            transition: .4s;
+            border-radius: 34px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 10px;
+            font-size: 12px;
+            font-weight: bold;
+            color: var(--toggle-text);
+        }
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 60px;
+            left: 4px;
+            bottom: 4px;
+            background-color: var(--toggle-slider);
+            transition: .4s;
+            border-radius: 34px;
+            z-index: 1;
+        }
+        .slider-text {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+        }
+        .light-text, .dark-text {
+            transition: opacity 0.3s;
+        }
+        .dark-mode .light-text {
+            opacity: 0.5;
+        }
+        .light-text {
+            opacity: 0.5;
+        }
+        .dark-mode .dark-text {
+            opacity: 1;
+        }
+        .dark-text {
+            opacity: 0.5;
+        }
+        input:checked + .slider:before {
+            transform: translateX(52px);
+        }
+        .progress-container {
+            background: var(--progress-bg);
+            border-radius: 5px;
+            margin-bottom: 20px;
+            position: relative;
+            height: 10px;
+            transition: background-color 0.3s;
+        }
+        .progress-bar {
+            height: 100%;
+            background: var(--primary-color);
+            border-radius: 5px;
+            width: 0%;
+            transition: width 0.3s ease, background-color 0.3s;
+        }
+        .stats {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            font-weight: bold;
+            color: var(--header-color);
+            transition: color 0.3s;
+        }
+        .question {
+            background: var(--question-bg);
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            transition: background-color 0.3s;
+        }
+        .question-number {
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            transition: color 0.3s;
+        }
+        .question-text {
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+        .options {
+            display: grid;
+            grid-gap: 10px;
+        }
+        .option {
+            padding: 12px 15px;
+            background: var(--option-bg);
+            border: 2px solid var(--border-color);
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .option:hover {
+            background: var(--option-hover);
+            border-color: var(--primary-color);
+        }
+        .option.selected {
+            background: var(--option-selected);
+            border-color: var(--primary-color);
+        }
+        .option.correct {
+            background: var(--correct-bg);
+            border-color: var(--correct-border);
+        }
+        .option.incorrect {
+            background: var(--incorrect-bg);
+            border-color: var(--incorrect-border);
+        }
+        .feedback {
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 15px;
+            display: none;
+        }
+        .feedback.correct {
+            background: var(--correct-bg);
+            color: var(--text-color);
+            border: 1px solid var(--correct-border);
+            display: block;
+        }
+        .feedback.incorrect {
+            background: var(--incorrect-bg);
+            color: var(--text-color);
+            border: 1px solid var(--incorrect-border);
+            display: block;
+        }
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+        button {
+            padding: 10px 20px;
+            background: var(--button-bg);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background: var(--button-hover);
+        }
+        button:disabled {
+            background: var(--button-disabled);
+            cursor: not-allowed;
+        }
+        .results {
+            text-align: center;
+            padding: 30px;
+            display: none;
+        }
+        .score {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: var(--header-color);
+        }
+        .score-value {
+            font-size: 48px;
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+        .restart-btn {
+            margin-top: 20px;
+            background: var(--restart-bg);
+        }
+        .restart-btn:hover {
+            background: var(--restart-hover);
+        }
+        .review-btn {
+            margin-top: 20px;
+            background: var(--review-bg);
+        }
+        .review-btn:hover {
+            background: var(--review-hover);
+        }
+        .review-section {
+            margin-top: 30px;
+            padding: 20px;
+            background: var(--question-bg);
+            border-radius: 8px;
+            display: none;
+        }
+        .review-title {
+            font-size: 20px;
+            margin-bottom: 15px;
+            color: var(--header-color);
+            text-align: center;
+        }
+        .review-question {
+            margin-bottom: 20px;
+            padding: 15px;
+            border-left: 4px solid var(--incorrect-border);
+            background: var(--container-bg);
+            border-radius: 4px;
+        }
+        .review-question-number {
+            font-weight: bold;
+            color: var(--incorrect-border);
+            margin-bottom: 8px;
+        }
+        .review-question-text {
+            margin-bottom: 10px;
+        }
+        .review-answer {
+            margin-top: 8px;
+            font-weight: bold;
+        }
+        .review-correct {
+            color: var(--correct-border);
+        }
+        .review-explanation {
+            margin-top: 5px;
+            font-style: italic;
+            color: var(--secondary-text);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>MCQs on Nutritional Assessment</h1>
+            <p class="author">Dr. Samy Salem</p>
+            <p class="description">Test your knowledge of Nutritional Assessment: screening tools, anthropometry, biochemical markers, and dietary assessment</p>
+            <div class="theme-toggle">
+                <label class="switch">
+                    <input type="checkbox" id="dark-mode-toggle">
+                    <span class="slider">
+                        <div class="slider-text">
+                            <span class="light-text">Light</span>
+                            <span class="dark-text">Dark</span>
+                        </div>
+                    </span>
+                </label>
+            </div>
+        </header>
+
+        <div class="progress-container">
+            <div class="progress-bar" id="progress-bar"></div>
+        </div>
+
+        <div class="stats">
+            <div>Question: <span id="current-question">1</span>/<span id="total-questions">45</span></div>
+            <div>Score: <span id="score">0</span>/<span id="total-score">45</span></div>
+        </div>
+
+        <div id="quiz-container">
+            <!-- Questions will be inserted here by JavaScript -->
+        </div>
+
+        <div class="navigation">
+            <button id="prev-btn" disabled>Previous</button>
+            <button id="next-btn">Next</button>
+        </div>
+
+        <div id="results" class="results">
+            <div class="score">Your Score: <span class="score-value" id="final-score">0</span>/45</div>
+            <p id="performance-message"></p>
+            <button class="restart-btn" id="restart-btn">Restart Quiz</button>
+            <button class="review-btn" id="review-btn">Review Incorrect Answers</button>
+        </div>
+
+        <div id="review-section" class="review-section">
+            <h2 class="review-title">Questions Answered Incorrectly</h2>
+            <div id="incorrect-questions-list"></div>
+        </div>
+    </div>
+
+    <script>
+        // Quiz data extracted from 7. Nutritional Assessment (MCQs).pdf
+        const originalQuizData = [
+            {
+                question: "What proportion of hospital patients does not consume enough energy or protein to meet physiological demands?",
+                options: [
+                    "1 in 10",
+                    "1 in 5",
+                    "1 in 3",
+                    "1 in 2"
+                ],
+                answer: 1,
+                explanation: "Page 1"
+            },
+            {
+                question: "Early detection of malnutrition significantly improves clinical outcomes, reduces complications, and:",
+                options: [
+                    "Increases hospital stays",
+                    "Shortens hospital stays",
+                    "Has no effect on hospital stays",
+                    "Increases readmission rates"
+                ],
+                answer: 1,
+                explanation: "Page 1"
+            },
+            {
+                question: "Which of the following is a key clinical driver of disease-related malnutrition?",
+                options: [
+                    "Disease-related impairment of food intake, digestion, and systemic metabolism",
+                    "Increased nutritional and metabolic demands due to trauma, surgery, sepsis, or catabolism",
+                    "Mechanical chewing and swallowing impairments",
+                    "All answers are correct"
+                ],
+                answer: 3,
+                explanation: "Page 1"
+            },
+            {
+                question: "Nutritional screening is defined as:",
+                options: [
+                    "An in-depth, comprehensive diagnosis of malnutrition",
+                    "A rapid initial procedure designed to detect individuals who are malnourished or at high risk",
+                    "A method to calculate exact caloric needs",
+                    "A surgical procedure"
+                ],
+                answer: 1,
+                explanation: "Page 1"
+            },
+            {
+                question: "Standardized screening tools must be:",
+                options: [
+                    "Easy, quick, economical, standardized, and validated",
+                    "Expensive and complex",
+                    "Only administered by dietitians",
+                    "Time-consuming"
+                ],
+                answer: 0,
+                explanation: "Page 2"
+            },
+            {
+                question: "Nutritional screening must be performed within the first how many hours of hospital admission?",
+                options: [
+                    "6-12 hours",
+                    "24-48 hours",
+                    "72 hours",
+                    "1 week"
+                ],
+                answer: 1,
+                explanation: "Page 2"
+            },
+            {
+                question: "Which of the following is a dynamic parameter assessed during nutritional screening?",
+                options: [
+                    "Recent unplanned weight loss",
+                    "Current BMI",
+                    "Acute reduction in food intake",
+                    "All answers are correct"
+                ],
+                answer: 3,
+                explanation: "Page 2"
+            },
+            {
+                question: "The NRS-2002 screening tool is the standard for:",
+                options: [
+                    "Geriatric and institutional care",
+                    "Ambulatory and general hospital use",
+                    "Acute inpatient wards",
+                    "Pediatric care"
+                ],
+                answer: 2,
+                explanation: "Page 2"
+            },
+            {
+                question: "The MUST screening tool is used for:",
+                options: [
+                    "Geriatric and institutional care",
+                    "Ambulatory and general hospital use",
+                    "Acute inpatient wards",
+                    "Pediatric care"
+                ],
+                answer: 1,
+                explanation: "Page 2"
+            },
+            {
+                question: "The MNA screening tool is used for:",
+                options: [
+                    "Geriatric and institutional care",
+                    "Ambulatory and general hospital use",
+                    "Acute inpatient wards",
+                    "Pediatric care"
+                ],
+                answer: 0,
+                explanation: "Page 3"
+            },
+            {
+                question: "Nutritional screening is conducted by:",
+                options: [
+                    "Specialized clinical dietitians only",
+                    "Any healthcare worker or nurse",
+                    "Only physicians",
+                    "Only surgeons"
+                ],
+                answer: 1,
+                explanation: "Page 3"
+            },
+            {
+                question: "Nutritional assessment is conducted by:",
+                options: [
+                    "Specialized clinical dietitians or nutritionists",
+                    "Any healthcare worker",
+                    "Only nurses",
+                    "Only pharmacists"
+                ],
+                answer: 0,
+                explanation: "Page 3"
+            },
+            {
+                question: "In the MUST tool, a BMI of 18.5-20 is scored as:",
+                options: [
+                    "0",
+                    "1",
+                    "2",
+                    "3"
+                ],
+                answer: 1,
+                explanation: "Page 3"
+            },
+            {
+                question: "In the MUST tool, a BMI less than 18.5 is scored as:",
+                options: [
+                    "0",
+                    "1",
+                    "2",
+                    "3"
+                ],
+                answer: 2,
+                explanation: "Page 3"
+            },
+            {
+                question: "In the MUST tool, unplanned weight loss of 5-10% in the past 3-6 months is scored as:",
+                options: [
+                    "0",
+                    "1",
+                    "2",
+                    "3"
+                ],
+                answer: 1,
+                explanation: "Page 4"
+            },
+            {
+                question: "In the MUST tool, unplanned weight loss greater than 10% is scored as:",
+                options: [
+                    "0",
+                    "1",
+                    "2",
+                    "3"
+                ],
+                answer: 2,
+                explanation: "Page 4"
+            },
+            {
+                question: "In the MUST tool, if a patient is acutely ill and there has been or is likely to be no nutritional intake for more than 5 days, the score is:",
+                options: [
+                    "0",
+                    "1",
+                    "2",
+                    "3"
+                ],
+                answer: 2,
+                explanation: "Page 4"
+            },
+            {
+                question: "In the MUST tool, a total score of 2 or more indicates:",
+                options: [
+                    "Medium risk",
+                    "Low risk",
+                    "High risk",
+                    "No risk"
+                ],
+                answer: 2,
+                explanation: "Page 4"
+            },
+            {
+                question: "In the MUST tool, a total score of 0 indicates:",
+                options: [
+                    "Low risk",
+                    "Medium risk",
+                    "High risk",
+                    "No risk"
+                ],
+                answer: 0,
+                explanation: "Page 4"
+            },
+            {
+                question: "Which domain of the ABCDEF nutritional assessment framework involves direct measurements of physical dimensions and body composition?",
+                options: [
+                    "Anthropometric",
+                    "Biochemical",
+                    "Clinical",
+                    "Dietary"
+                ],
+                answer: 0,
+                explanation: "Page 5"
+            },
+            {
+                question: "Which domain of the ABCDEF framework involves laboratory analysis of serum proteins, blood glucose, and lipid panel?",
+                options: [
+                    "Anthropometric",
+                    "Biochemical",
+                    "Clinical",
+                    "Dietary"
+                ],
+                answer: 1,
+                explanation: "Page 5"
+            },
+            {
+                question: "The Nutrition-Focused Physical Examination (NFPE) is part of which assessment domain?",
+                options: [
+                    "Anthropometric",
+                    "Biochemical",
+                    "Clinical",
+                    "Dietary"
+                ],
+                answer: 2,
+                explanation: "Page 5"
+            },
+            {
+                question: "The formula for BMI is:",
+                options: [
+                    "Weight (kg) / Height (m)",
+                    "Weight (kg) / [Height (m)]²",
+                    "Height (m) / Weight (kg)",
+                    "Weight (kg) × Height (m)"
+                ],
+                answer: 1,
+                explanation: "Page 5"
+            },
+            {
+                question: "When measuring height accurately, the head should be positioned in the:",
+                options: [
+                    "Frankfort Horizontal Plane",
+                    "Anatomical position",
+                    "Extended position",
+                    "Flexed position"
+                ],
+                answer: 0,
+                explanation: "Page 5"
+            },
+            {
+                question: "Percentage weight loss is calculated as:",
+                options: [
+                    "[(Usual Body Weight - Actual Body Weight) / Usual Body Weight] × 100",
+                    "[(Actual Body Weight - Usual Body Weight) / Usual Body Weight] × 100",
+                    "Usual Body Weight / Actual Body Weight × 100",
+                    "Actual Body Weight / Usual Body Weight × 100"
+                ],
+                answer: 0,
+                explanation: "Page 6"
+            },
+            {
+                question: "Unplanned weight loss of ≥ 5% in 3 months or ≥ 10% in 6 months indicates:",
+                options: [
+                    "Low risk",
+                    "Significant high-risk malnutrition or acute catabolic depletion",
+                    "Normal weight fluctuation",
+                    "Overweight status"
+                ],
+                answer: 1,
+                explanation: "Page 6"
+            },
+            {
+                question: "The android (\"apple shape\") phenotype is characterized by adipose tissue centrally around the abdomen and is associated with:",
+                options: [
+                    "Lower cardiovascular risk",
+                    "Greater cardiovascular and metabolic disease risk",
+                    "No health risk",
+                    "Only cosmetic concerns"
+                ],
+                answer: 1,
+                explanation: "Page 6"
+            },
+            {
+                question: "For women, a waist-to-hip ratio of 0.86 or higher indicates:",
+                options: [
+                    "Low health risk",
+                    "Moderate health risk",
+                    "High health risk",
+                    "No risk"
+                ],
+                answer: 2,
+                explanation: "Page 6"
+            },
+            {
+                question: "For men, a waist-to-hip ratio of 1.00 or higher indicates:",
+                options: [
+                    "Low health risk",
+                    "Moderate health risk",
+                    "High health risk",
+                    "No risk"
+                ],
+                answer: 2,
+                explanation: "Page 6"
+            },
+            {
+                question: "Which skinfold site is described as a vertical fold on the posterior midline of the upper arm, midway between the acromion and olecranon?",
+                options: [
+                    "Subscapular",
+                    "Triceps",
+                    "Suprailiac",
+                    "Thigh"
+                ],
+                answer: 1,
+                explanation: "Page 7"
+            },
+            {
+                question: "Which body composition technology uses high-frequency sound waves to evaluate subcutaneous fat thickness and muscle cross-sectional area?",
+                options: [
+                    "BIA",
+                    "DEXA",
+                    "Skinfold calipers",
+                    "Muscle Ultrasonography"
+                ],
+                answer: 3,
+                explanation: "Page 7"
+            },
+            {
+                question: "Which body composition technology is described as the gold standard clinical accuracy for precise regional and segmental body composition?",
+                options: [
+                    "BIA",
+                    "DEXA Scan",
+                    "Ultrasound",
+                    "Skinfold calipers"
+                ],
+                answer: 1,
+                explanation: "Page 7"
+            },
+            {
+                question: "BIA is extremely sensitive to which factor?",
+                options: [
+                    "Acute hydration status, edema, or diuresis",
+                    "Bone density only",
+                    "Muscle fiber type",
+                    "Hair color"
+                ],
+                answer: 0,
+                explanation: "Page 7"
+            },
+            {
+                question: "Head circumference is essential for infants and toddlers under what age to monitor neurodevelopment and brain growth?",
+                options: [
+                    "5 year",
+                    "4 year",
+                    "3 years",
+                    "2 years"
+                ],
+                answer: 3,
+                explanation: "Page 7"
+            },
+            {
+                question: "At birth, the head circumference is approximately how much larger than the chest circumference?",
+                options: [
+                    "1 cm",
+                    "2 cm",
+                    "5 cm",
+                    "10 cm"
+                ],
+                answer: 1,
+                explanation: "Page 8"
+            },
+            {
+                question: "Which biochemical biomarker is described as a negative acute-phase hepatic protein that reflects systemic inflammation, surgical stress, or illness severity?",
+                options: [
+                    "Hemoglobin",
+                    "Serum Albumin",
+                    "Creatinine",
+                    "Blood Glucose"
+                ],
+                answer: 1,
+                explanation: "Page 8"
+            },
+            {
+                question: "Which biochemical biomarker is a surrogate marker of skeletal muscle mass, with depressed values reflecting severe muscle sarcopenia or atrophy?",
+                options: [
+                    "Hemoglobin",
+                    "Serum Albumin",
+                    "Creatinine",
+                    "Lipid Profile"
+                ],
+                answer: 2,
+                explanation: "Page 8"
+            },
+            {
+                question: "Which dietary assessment method retrospectively records all meals, beverages, snacks, and supplements consumed over the past 24 hours?",
+                options: [
+                    "Food Frequency Questionnaire (FFQ)",
+                    "24-Hour Dietary Recall",
+                    "Food Records",
+                    "Direct Observation"
+                ],
+                answer: 1,
+                explanation: "Page 8"
+            },
+            {
+                question: "Which functional test is a validated biomarker of nutritional status and muscle function that directly predicts post-surgical outcomes, length of stay, and inpatient mortality?",
+                options: [
+                    "Peak Flow",
+                    "FEV1",
+                    "Handgrip Dynamometry",
+                    "Six-minute walk test"
+                ],
+                answer: 2,
+                explanation: "Page 9"
+            },
+            {
+                question: "The Mifflin-St Jeor equation for men is:",
+                options: [
+                    "BMR = (10 × weight kg) + (6.25 × height cm) - (5 × age) + 5",
+                    "BMR = (10 × weight kg) + (6.25 × height cm) - (5 × age) - 161",
+                    "BMR = (13.384 × weight kg) + 692.6",
+                    "BMR = (22.706 × weight kg) + 504.3"
+                ],
+                answer: 0,
+                explanation: "Page 9"
+            },
+            {
+                question: "The Mifflin-St Jeor equation for women is:",
+                options: [
+                    "BMR = (10 × weight kg) + (6.25 × height cm) - (5 × age) + 5",
+                    "BMR = (10 × weight kg) + (6.25 × height cm) - (5 × age) - 161",
+                    "BMR = (13.384 × weight kg) + 692.6",
+                    "BMR = (22.706 × weight kg) + 504.3"
+                ],
+                answer: 1,
+                explanation: "Page 9"
+            },
+            {
+                question: "A PAL multiplier of 1.200 corresponds to which activity level?",
+                options: [
+                    "Sedentary",
+                    "Light Activity",
+                    "Moderate Activity",
+                    "Very Active"
+                ],
+                answer: 0,
+                explanation: "Page 9"
+            },
+            {
+                question: "A PAL multiplier of 1.550 corresponds to which activity level?",
+                options: [
+                    "Sedentary",
+                    "Light Activity",
+                    "Very Active",
+                    "Moderate Activity"
+                ],
+                answer: 3,
+                explanation: "Page 9"
+            },
+            {
+                question: "In the ADA food exchange system, one starch/grain serving provides how many grams of carbohydrate?",
+                options: [
+                    "5 g",
+                    "12 g",
+                    "15 g",
+                    "20 g"
+                ],
+                answer: 2,
+                explanation: "Page 10"
+            },
+            {
+                question: "In the ADA food exchange system, one lean protein serving provides how many grams of protein?",
+                options: [
+                    "3 g",
+                    "5 g",
+                    "7 g",
+                    "12 g"
+                ],
+                answer: 2,
+                explanation: "Page 10"
+            }
+        ];
+
+        // Function to shuffle an array (Fisher-Yates algorithm)
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        // Function to create a randomized version of the quiz data
+        function createRandomizedQuizData() {
+            const randomizedData = [];
+            
+            originalQuizData.forEach(question => {
+                // Create a copy of the original question
+                const randomizedQuestion = {
+                    question: question.question,
+                    options: [...question.options], // Copy options array
+                    originalAnswer: question.answer, // Store original answer index
+                    explanation: question.explanation
+                };
+                
+                // Create an array of indices [0, 1, 2, 3]
+                const indices = [0, 1, 2, 3];
+                
+                // Shuffle the indices
+                shuffleArray(indices);
+                
+                // Create a new options array with shuffled order
+                const shuffledOptions = indices.map(index => question.options[index]);
+                
+                // Find the new position of the correct answer
+                const newAnswerIndex = indices.indexOf(question.answer);
+                
+                // Update the question with shuffled options and new answer
+                randomizedQuestion.options = shuffledOptions;
+                randomizedQuestion.answer = newAnswerIndex;
+                
+                randomizedData.push(randomizedQuestion);
+            });
+            
+            return randomizedData;
+        }
+
+        // Create randomized quiz data
+        let quizData = createRandomizedQuizData();
+
+        // Quiz state variables
+        let currentQuestion = 0;
+        let score = 0;
+        let userAnswers = new Array(quizData.length).fill(null);
+        let incorrectQuestions = [];
+
+        // DOM elements
+        const quizContainer = document.getElementById('quiz-container');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const progressBar = document.getElementById('progress-bar');
+        const currentQuestionEl = document.getElementById('current-question');
+        const totalQuestionsEl = document.getElementById('total-questions');
+        const scoreEl = document.getElementById('score');
+        const totalScoreEl = document.getElementById('total-score');
+        const resultsContainer = document.getElementById('results');
+        const finalScoreEl = document.getElementById('final-score');
+        const performanceMessageEl = document.getElementById('performance-message');
+        const restartBtn = document.getElementById('restart-btn');
+        const reviewBtn = document.getElementById('review-btn');
+        const reviewSection = document.getElementById('review-section');
+        const incorrectQuestionsList = document.getElementById('incorrect-questions-list');
+        const darkModeToggle = document.getElementById('dark-mode-toggle');
+        const lightText = document.querySelector('.light-text');
+        const darkText = document.querySelector('.dark-text');
+
+        // Initialize quiz
+        function initQuiz() {
+            totalQuestionsEl.textContent = quizData.length;
+            totalScoreEl.textContent = quizData.length;
+            showQuestion();
+            updateProgressBar();
+            
+            // Initialize dark mode based on system preference
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                document.body.classList.add('dark-mode');
+                darkModeToggle.checked = true;
+                updateToggleText(true);
+            } else {
+                updateToggleText(false);
+            }
+            
+            // Event listeners
+            prevBtn.addEventListener('click', showPreviousQuestion);
+            nextBtn.addEventListener('click', showNextQuestion);
+            restartBtn.addEventListener('click', restartQuiz);
+            reviewBtn.addEventListener('click', showIncorrectQuestions);
+            darkModeToggle.addEventListener('change', toggleDarkMode);
+        }
+
+        // Toggle dark mode
+        function toggleDarkMode() {
+            const isDarkMode = darkModeToggle.checked;
+            document.body.classList.toggle('dark-mode', isDarkMode);
+            updateToggleText(isDarkMode);
+        }
+
+        // Update toggle text opacity
+        function updateToggleText(isDarkMode) {
+            if (isDarkMode) {
+                lightText.style.opacity = '0.5';
+                darkText.style.opacity = '1';
+            } else {
+                lightText.style.opacity = '1';
+                darkText.style.opacity = '0.5';
+            }
+        }
+
+        // Show current question
+        function showQuestion() {
+            currentQuestionEl.textContent = currentQuestion + 1;
+            scoreEl.textContent = score;
+            
+            const question = quizData[currentQuestion];
+            let optionsHTML = '';
+            
+            question.options.forEach((option, index) => {
+                let optionClass = 'option';
+                if (userAnswers[currentQuestion] === index) {
+                    optionClass += ' selected';
+                    if (index === question.answer) {
+                        optionClass += ' correct';
+                    } else {
+                        optionClass += ' incorrect';
+                    }
+                }
+                
+                optionsHTML += `
+                    <div class="${optionClass}" data-index="${index}">
+                        ${String.fromCharCode(65 + index)}) ${option}
+                    </div>
+                `;
+            });
+            
+            let feedbackHTML = '';
+            if (userAnswers[currentQuestion] !== null) {
+                const isCorrect = userAnswers[currentQuestion] === question.answer;
+                const correctLetter = String.fromCharCode(65 + question.answer);
+                const correctAnswerText = question.options[question.answer];
+                
+                feedbackHTML = `
+                    <div class="feedback ${isCorrect ? 'correct' : 'incorrect'}">
+                        ${isCorrect ? '✓ Correct!' : '✗ Incorrect!'} 
+                        ${!isCorrect ? `Correct answer: ${correctLetter}) ${correctAnswerText}` : ''}
+                        ${question.explanation ? `<br><br>Explanation: ${question.explanation}` : ''}
+                    </div>
+                `;
+            }
+            
+            quizContainer.innerHTML = `
+                <div class="question">
+                    <div class="question-number">Question ${currentQuestion + 1}/${quizData.length}</div>
+                    <div class="question-text">${question.question}</div>
+                    <div class="options">${optionsHTML}</div>
+                    ${feedbackHTML}
+                </div>
+            `;
+            
+            // Add event listeners to options
+            const optionElements = quizContainer.querySelectorAll('.option');
+            optionElements.forEach(option => {
+                option.addEventListener('click', selectOption);
+            });
+            
+            // Update navigation buttons
+            prevBtn.disabled = currentQuestion === 0;
+            nextBtn.textContent = currentQuestion === quizData.length - 1 ? 'Finish Quiz' : 'Next';
+        }
+
+        // Select an option
+        function selectOption(e) {
+            if (userAnswers[currentQuestion] !== null) return; // Already answered
+            
+            const selectedOption = e.currentTarget;
+            const selectedIndex = parseInt(selectedOption.dataset.index);
+            
+            userAnswers[currentQuestion] = selectedIndex;
+            
+            // Check if answer is correct
+            if (selectedIndex === quizData[currentQuestion].answer) {
+                score++;
+                scoreEl.textContent = score;
+            } else {
+                // Add to incorrect questions list
+                incorrectQuestions.push({
+                    question: quizData[currentQuestion].question,
+                    userAnswer: selectedIndex,
+                    correctAnswer: quizData[currentQuestion].answer,
+                    options: quizData[currentQuestion].options,
+                    explanation: quizData[currentQuestion].explanation,
+                    questionNumber: currentQuestion + 1
+                });
+            }
+            
+            showQuestion();
+            updateProgressBar();
+        }
+
+        // Show next question
+        function showNextQuestion() {
+            if (currentQuestion < quizData.length - 1) {
+                currentQuestion++;
+                showQuestion();
+            } else {
+                showResults();
+            }
+        }
+
+        // Show previous question
+        function showPreviousQuestion() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                showQuestion();
+            }
+        }
+
+        // Update progress bar
+        function updateProgressBar() {
+            const progress = ((currentQuestion + 1) / quizData.length) * 100;
+            progressBar.style.width = `${progress}%`;
+        }
+
+        // Show results
+        function showResults() {
+            quizContainer.style.display = 'none';
+            document.querySelector('.navigation').style.display = 'none';
+            document.querySelector('.progress-container').style.display = 'none';
+            document.querySelector('.stats').style.display = 'none';
+            
+            finalScoreEl.textContent = score;
+            
+            // Performance message
+            const percentage = (score / quizData.length) * 100;
+            let message = '';
+            if (percentage >= 80) {
+                message = 'Excellent! You have a strong understanding of Nutritional Assessment.';
+            } else if (percentage >= 60) {
+                message = 'Good job! You have a solid grasp of the material.';
+            } else if (percentage >= 40) {
+                message = 'Not bad! Review the material and try again.';
+            } else {
+                message = 'Keep studying! Review the lectures and try again.';
+            }
+            
+            performanceMessageEl.textContent = message;
+            resultsContainer.style.display = 'block';
+            
+            // Show review button only if there are incorrect answers
+            if (incorrectQuestions.length > 0) {
+                reviewBtn.style.display = 'inline-block';
+            } else {
+                reviewBtn.style.display = 'none';
+            }
+        }
+
+        // Show incorrect questions
+        function showIncorrectQuestions() {
+            resultsContainer.style.display = 'none';
+            reviewSection.style.display = 'block';
+            
+            let incorrectHTML = '';
+            incorrectQuestions.forEach((item, index) => {
+                const correctLetter = String.fromCharCode(65 + item.correctAnswer);
+                const userLetter = String.fromCharCode(65 + item.userAnswer);
+                
+                incorrectHTML += `
+                    <div class="review-question">
+                        <div class="review-question-number">Question ${item.questionNumber}</div>
+                        <div class="review-question-text">${item.question}</div>
+                        <div>Your answer: ${userLetter}) ${item.options[item.userAnswer]}</div>
+                        <div class="review-answer review-correct">Correct answer: ${correctLetter}) ${item.options[item.correctAnswer]}</div>
+                        ${item.explanation ? `<div class="review-explanation">${item.explanation}</div>` : ''}
+                    </div>
+                `;
+            });
+            
+            incorrectQuestionsList.innerHTML = incorrectHTML;
+        }
+
+        // Restart quiz
+        function restartQuiz() {
+            currentQuestion = 0;
+            score = 0;
+            userAnswers = new Array(quizData.length).fill(null);
+            incorrectQuestions = [];
+            
+            // Re-randomize the quiz data when restarting
+            quizData = createRandomizedQuizData();
+            
+            quizContainer.style.display = 'block';
+            document.querySelector('.navigation').style.display = 'flex';
+            document.querySelector('.progress-container').style.display = 'block';
+            document.querySelector('.stats').style.display = 'flex';
+            resultsContainer.style.display = 'none';
+            reviewSection.style.display = 'none';
+            
+            showQuestion();
+            updateProgressBar();
+        }
+
+        // Initialize the quiz when the page loads
+        window.onload = initQuiz;
+    </script>
+</body>
+</html>
