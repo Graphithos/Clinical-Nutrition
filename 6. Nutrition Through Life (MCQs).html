@@ -1,0 +1,1281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MCQs on Nutrition Through Life</title>
+    <style>
+        :root {
+            --bg-color: #f5f7fa;
+            --container-bg: white;
+            --text-color: #333;
+            --border-color: #ddd;
+            --primary-color: #3498db;
+            --header-color: #2c3e50;
+            --secondary-text: #7f8c8d;
+            --progress-bg: #ecf0f1;
+            --question-bg: #f8f9fa;
+            --option-bg: #fff;
+            --option-hover: #f1f8ff;
+            --option-selected: #d1ecf1;
+            --correct-bg: #d4edda;
+            --correct-border: #28a745;
+            --incorrect-bg: #f8d7da;
+            --incorrect-border: #dc3545;
+            --button-bg: #3498db;
+            --button-hover: #2980b9;
+            --button-disabled: #bdc3c7;
+            --restart-bg: #2ecc71;
+            --restart-hover: #27ae60;
+            --review-bg: #f39c12;
+            --review-hover: #e67e22;
+            --toggle-bg: #ecf0f1;
+            --toggle-slider: white;
+            --toggle-text: #7f8c8d;
+        }
+
+        .dark-mode {
+            --bg-color: #1a1a2e;
+            --container-bg: #16213e;
+            --text-color: #e6e6e6;
+            --border-color: #394867;
+            --primary-color: #4cc9f0;
+            --header-color: #e6e6e6;
+            --secondary-text: #a9a9a9;
+            --progress-bg: #394867;
+            --question-bg: #1f4068;
+            --option-bg: #16213e;
+            --option-hover: #1f4068;
+            --option-selected: #1f4068;
+            --correct-bg: #2d5a2d;
+            --correct-border: #4caf50;
+            --incorrect-bg: #5a2d2d;
+            --incorrect-border: #f44336;
+            --button-bg: #4cc9f0;
+            --button-hover: #3aa8d0;
+            --button-disabled: #5d6d7e;
+            --restart-bg: #2ecc71;
+            --restart-hover: #27ae60;
+            --review-bg: #f39c12;
+            --review-hover: #e67e22;
+            --toggle-bg: #394867;
+            --toggle-slider: #4cc9f0;
+            --toggle-text: #e6e6e6;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding: 20px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--container-bg);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s, box-shadow 0.3s;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid var(--primary-color);
+            position: relative;
+        }
+        h1 {
+            color: var(--header-color);
+            margin-bottom: 5px;
+            font-size: 24px;
+            transition: color 0.3s;
+        }
+        .author {
+            color: var(--secondary-text);
+            font-style: italic;
+            margin-bottom: 10px;
+            transition: color 0.3s;
+        }
+        .description {
+            color: var(--secondary-text);
+            margin-bottom: 20px;
+            transition: color 0.3s;
+        }
+        .theme-toggle {
+            position: absolute;
+            top: 35px;
+            right: 0;
+            display: flex;
+            align-items: center;
+        }
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 120px;
+            height: 34px;
+        }
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: var(--toggle-bg);
+            transition: .4s;
+            border-radius: 34px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 10px;
+            font-size: 12px;
+            font-weight: bold;
+            color: var(--toggle-text);
+        }
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 60px;
+            left: 4px;
+            bottom: 4px;
+            background-color: var(--toggle-slider);
+            transition: .4s;
+            border-radius: 34px;
+            z-index: 1;
+        }
+        .slider-text {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+        }
+        .light-text, .dark-text {
+            transition: opacity 0.3s;
+        }
+        .dark-mode .light-text {
+            opacity: 0.5;
+        }
+        .light-text {
+            opacity: 0.5;
+        }
+        .dark-mode .dark-text {
+            opacity: 1;
+        }
+        .dark-text {
+            opacity: 0.5;
+        }
+        input:checked + .slider:before {
+            transform: translateX(52px);
+        }
+        .progress-container {
+            background: var(--progress-bg);
+            border-radius: 5px;
+            margin-bottom: 20px;
+            position: relative;
+            height: 10px;
+            transition: background-color 0.3s;
+        }
+        .progress-bar {
+            height: 100%;
+            background: var(--primary-color);
+            border-radius: 5px;
+            width: 0%;
+            transition: width 0.3s ease, background-color 0.3s;
+        }
+        .stats {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            font-weight: bold;
+            color: var(--header-color);
+            transition: color 0.3s;
+        }
+        .question {
+            background: var(--question-bg);
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            transition: background-color 0.3s;
+        }
+        .question-number {
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            transition: color 0.3s;
+        }
+        .question-text {
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+        .options {
+            display: grid;
+            grid-gap: 10px;
+        }
+        .option {
+            padding: 12px 15px;
+            background: var(--option-bg);
+            border: 2px solid var(--border-color);
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .option:hover {
+            background: var(--option-hover);
+            border-color: var(--primary-color);
+        }
+        .option.selected {
+            background: var(--option-selected);
+            border-color: var(--primary-color);
+        }
+        .option.correct {
+            background: var(--correct-bg);
+            border-color: var(--correct-border);
+        }
+        .option.incorrect {
+            background: var(--incorrect-bg);
+            border-color: var(--incorrect-border);
+        }
+        .feedback {
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 15px;
+            display: none;
+        }
+        .feedback.correct {
+            background: var(--correct-bg);
+            color: var(--text-color);
+            border: 1px solid var(--correct-border);
+            display: block;
+        }
+        .feedback.incorrect {
+            background: var(--incorrect-bg);
+            color: var(--text-color);
+            border: 1px solid var(--incorrect-border);
+            display: block;
+        }
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+        button {
+            padding: 10px 20px;
+            background: var(--button-bg);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background: var(--button-hover);
+        }
+        button:disabled {
+            background: var(--button-disabled);
+            cursor: not-allowed;
+        }
+        .results {
+            text-align: center;
+            padding: 30px;
+            display: none;
+        }
+        .score {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: var(--header-color);
+        }
+        .score-value {
+            font-size: 48px;
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+        .restart-btn {
+            margin-top: 20px;
+            background: var(--restart-bg);
+        }
+        .restart-btn:hover {
+            background: var(--restart-hover);
+        }
+        .review-btn {
+            margin-top: 20px;
+            background: var(--review-bg);
+        }
+        .review-btn:hover {
+            background: var(--review-hover);
+        }
+        .review-section {
+            margin-top: 30px;
+            padding: 20px;
+            background: var(--question-bg);
+            border-radius: 8px;
+            display: none;
+        }
+        .review-title {
+            font-size: 20px;
+            margin-bottom: 15px;
+            color: var(--header-color);
+            text-align: center;
+        }
+        .review-question {
+            margin-bottom: 20px;
+            padding: 15px;
+            border-left: 4px solid var(--incorrect-border);
+            background: var(--container-bg);
+            border-radius: 4px;
+        }
+        .review-question-number {
+            font-weight: bold;
+            color: var(--incorrect-border);
+            margin-bottom: 8px;
+        }
+        .review-question-text {
+            margin-bottom: 10px;
+        }
+        .review-answer {
+            margin-top: 8px;
+            font-weight: bold;
+        }
+        .review-correct {
+            color: var(--correct-border);
+        }
+        .review-explanation {
+            margin-top: 5px;
+            font-style: italic;
+            color: var(--secondary-text);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>MCQs on Nutrition Through Life</h1>
+            <p class="author">Dr. Samy Salem</p>
+            <p class="description">Test your knowledge of Nutrition Through Life: infancy, childhood, adolescence, adulthood, pregnancy, and aging</p>
+            <div class="theme-toggle">
+                <label class="switch">
+                    <input type="checkbox" id="dark-mode-toggle">
+                    <span class="slider">
+                        <div class="slider-text">
+                            <span class="light-text">Light</span>
+                            <span class="dark-text">Dark</span>
+                        </div>
+                    </span>
+                </label>
+            </div>
+        </header>
+
+        <div class="progress-container">
+            <div class="progress-bar" id="progress-bar"></div>
+        </div>
+
+        <div class="stats">
+            <div>Question: <span id="current-question">1</span>/<span id="total-questions">50</span></div>
+            <div>Score: <span id="score">0</span>/<span id="total-score">50</span></div>
+        </div>
+
+        <div id="quiz-container">
+            <!-- Questions will be inserted here by JavaScript -->
+        </div>
+
+        <div class="navigation">
+            <button id="prev-btn" disabled>Previous</button>
+            <button id="next-btn">Next</button>
+        </div>
+
+        <div id="results" class="results">
+            <div class="score">Your Score: <span class="score-value" id="final-score">0</span>/50</div>
+            <p id="performance-message"></p>
+            <button class="restart-btn" id="restart-btn">Restart Quiz</button>
+            <button class="review-btn" id="review-btn">Review Incorrect Answers</button>
+        </div>
+
+        <div id="review-section" class="review-section">
+            <h2 class="review-title">Questions Answered Incorrectly</h2>
+            <div id="incorrect-questions-list"></div>
+        </div>
+    </div>
+
+    <script>
+        // Quiz data extracted from 6. Nutrition Through Life (MCQs).pdf
+        const originalQuizData = [
+            {
+                question: "According to WHO and UNICEF recommendations, breastfeeding should be initiated within:",
+                options: [
+                    "The first hour after birth",
+                    "The first 24 hours after birth",
+                    "The first week after birth",
+                    "The first month after birth"
+                ],
+                answer: 0,
+                explanation: "Page 5"
+            },
+            {
+                question: "Exclusive breastfeeding is recommended for the first:",
+                options: [
+                    "3 months of life",
+                    "6 months of life",
+                    "12 months of life",
+                    "24 months of life"
+                ],
+                answer: 1,
+                explanation: "Page 5"
+            },
+            {
+                question: "Colostrum is produced during which period?",
+                options: [
+                    "The first days after birth",
+                    "Days 5-14 postpartum",
+                    "Weeks 2-4 postpartum",
+                    "Months 2-6 postpartum"
+                ],
+                answer: 0,
+                explanation: "Page 6"
+            },
+            {
+                question: "Colostrum is particularly rich in which immunological component?",
+                options: [
+                    "Secretory IgA",
+                    "IgG",
+                    "IgE",
+                    "Complement proteins"
+                ],
+                answer: 0,
+                explanation: "Page 6"
+            },
+            {
+                question: "Transitional milk appears over approximately which period?",
+                options: [
+                    "Days 1-4 postpartum",
+                    "Days 5-14 postpartum",
+                    "Weeks 3-6 postpartum",
+                    "Months 2-3 postpartum"
+                ],
+                answer: 1,
+                explanation: "Page 6"
+            },
+            {
+                question: "Foremilk, at the beginning of a feed, contains mainly:",
+                options: [
+                    "High levels of fats",
+                    "Water, vitamins, and protein",
+                    "Only lactose",
+                    "Only minerals"
+                ],
+                answer: 1,
+                explanation: "Page 7"
+            },
+            {
+                question: "Hindmilk, released after the initial milk, contains high levels of:",
+                options: [
+                    "Water",
+                    "Protein",
+                    "Fats",
+                    "Vitamins"
+                ],
+                answer: 2,
+                explanation: "Page 7"
+            },
+            {
+                question: "Complementary feeding should begin at around:",
+                options: [
+                    "3 months",
+                    "4 months",
+                    "6 months",
+                    "12 months"
+                ],
+                answer: 2,
+                explanation: "Page 8"
+            },
+            {
+                question: "Honey should be avoided before what age because of infant botulism risk?",
+                options: [
+                    "6 months",
+                    "12 months",
+                    "18 months",
+                    "24 months"
+                ],
+                answer: 1,
+                explanation: "Page 8"
+            },
+            {
+                question: "Which of the following is a choking hazard to avoid in complementary feeding?",
+                options: [
+                    "Mashed vegetables",
+                    "Whole nuts and whole grapes",
+                    "Soft cooked legumes",
+                    "Iron-fortified cereals"
+                ],
+                answer: 1,
+                explanation: "Page 8"
+            },
+            {
+                question: "The main carbohydrate in human milk is:",
+                options: [
+                    "Sucrose",
+                    "Fructose",
+                    "Lactose",
+                    "Starch"
+                ],
+                answer: 2,
+                explanation: "Page 9"
+            },
+            {
+                question: "The carbohydrate RDA for infants 0-6 months is:",
+                options: [
+                    "30 g/day",
+                    "60 g/day",
+                    "95 g/day",
+                    "130 g/day"
+                ],
+                answer: 1,
+                explanation: "Page 9"
+            },
+            {
+                question: "The carbohydrate RDA for infants 7-12 months is:",
+                options: [
+                    "60 g/day",
+                    "75 g/day",
+                    "95 g/day",
+                    "130 g/day"
+                ],
+                answer: 2,
+                explanation: "Page 9"
+            },
+            {
+                question: "The approximate protein requirement for infants 0-6 months is:",
+                options: [
+                    "5 g/day",
+                    "9.1 g/day",
+                    "11 g/day",
+                    "19 g/day"
+                ],
+                answer: 1,
+                explanation: "Page 10"
+            },
+            {
+                question: "The approximate protein requirement for infants 7-12 months is:",
+                options: [
+                    "5 g/day",
+                    "9.1 g/day",
+                    "11 g/day",
+                    "19 g/day"
+                ],
+                answer: 2,
+                explanation: "Page 10"
+            },
+            {
+                question: "Which fatty acids are described as especially important components of infant neurodevelopment?",
+                options: [
+                    "Saturated fatty acids",
+                    "Trans fatty acids",
+                    "Only short-chain fatty acids",
+                    "Linoleic acid (n-6), α-linolenic acid (n-3), and DHA"
+                ],
+                answer: 3,
+                explanation: "Page 11"
+            },
+            {
+                question: "The recommended vitamin D intake for infants from birth is:",
+                options: [
+                    "200 IU/day",
+                    "400 IU/day",
+                    "600 IU/day",
+                    "800 IU/day"
+                ],
+                answer: 1,
+                explanation: "Page 12"
+            },
+            {
+                question: "Regarding fluid needs in infancy, routine additional plain water is generally:",
+                options: [
+                    "Necessary from birth",
+                    "Unnecessary for healthy infants younger than 6 months",
+                    "Required after 1 month",
+                    "Recommended in large amounts"
+                ],
+                answer: 1,
+                explanation: "Page 13"
+            },
+            {
+                question: "Which growth standard is used for children under 5 years?",
+                options: [
+                    "WHO Child Growth Standards",
+                    "CDC growth charts",
+                    "Adult BMI charts",
+                    "Mid-parental height formula"
+                ],
+                answer: 0,
+                explanation: "Page 14"
+            },
+            {
+                question: "Which indicator identifies linear growth faltering or short length?",
+                options: [
+                    "Weight-for-age",
+                    "Length-for-age",
+                    "Weight-for-length",
+                    "Head circumference-for-age"
+                ],
+                answer: 1,
+                explanation: "Page 14"
+            },
+            {
+                question: "For children aged 1-3 years, carbohydrates should provide what percentage of total energy?",
+                options: [
+                    "20-35%",
+                    "45-65%",
+                    "70-80%",
+                    "10-20%"
+                ],
+                answer: 1,
+                explanation: "Page 16"
+            },
+            {
+                question: "The protein AMDR for ages 1-3 years is:",
+                options: [
+                    "5-20% of energy",
+                    "10-30% of energy",
+                    "25-35% of energy",
+                    "45-65% of energy"
+                ],
+                answer: 0,
+                explanation: "Page 17"
+            },
+            {
+                question: "The protein RDA for children aged 1-3 years is:",
+                options: [
+                    "13 g/day",
+                    "19 g/day",
+                    "34 g/day",
+                    "52 g/day"
+                ],
+                answer: 0,
+                explanation: "Page 17"
+            },
+            {
+                question: "The protein RDA for children aged 4-8 years is:",
+                options: [
+                    "13 g/day",
+                    "19 g/day",
+                    "34 g/day",
+                    "52 g/day"
+                ],
+                answer: 1,
+                explanation: "Page 17"
+            },
+            {
+                question: "The fat AMDR for ages 1-3 years is:",
+                options: [
+                    "10-20% of energy",
+                    "25-35% of energy",
+                    "30-40% of total energy",
+                    "45-65% of energy"
+                ],
+                answer: 2,
+                explanation: "Page 18"
+            },
+            {
+                question: "The iron requirement for children 4-5 years old is:",
+                options: [
+                    "3 mg/day",
+                    "7 mg/day",
+                    "10 mg/day",
+                    "15 mg/day"
+                ],
+                answer: 2,
+                explanation: "Page 19"
+            },
+            {
+                question: "Total fluid intake for children from 4-8 years is approximately:",
+                options: [
+                    "1.0 L/day",
+                    "1.3 L/day",
+                    "1.7 L/day",
+                    "2.4 L/day"
+                ],
+                answer: 2,
+                explanation: "Page 20"
+            },
+            {
+                question: "The protein RDA for children aged 9-13 years is:",
+                options: [
+                    "19 g/day",
+                    "34 g/day",
+                    "46 g/day",
+                    "52 g/day"
+                ],
+                answer: 1,
+                explanation: "Page 23"
+            },
+            {
+                question: "The calcium requirement from age 9-13 years is:",
+                options: [
+                    "700 mg/day",
+                    "1000 mg/day",
+                    "1300 mg/day",
+                    "1500 mg/day"
+                ],
+                answer: 2,
+                explanation: "Page 24"
+            },
+            {
+                question: "The iron requirement for adolescents aged 14-18 is:",
+                options: [
+                    "8 mg for girls and 11 mg for boys",
+                    "15 mg for girls and 11 mg for boys",
+                    "11 mg for girls and 15 mg for boys",
+                    "18 mg for both"
+                ],
+                answer: 1,
+                explanation: "Page 29"
+            },
+            {
+                question: "The protein RDA for boys aged 14-18 years is:",
+                options: [
+                    "34 g/day",
+                    "46 g/day",
+                    "52 g/day",
+                    "19 g/day"
+                ],
+                answer: 2,
+                explanation: "Page 28"
+            },
+            {
+                question: "The protein RDA for girls aged 14-18 years is:",
+                options: [
+                    "34 g/day",
+                    "46 g/day",
+                    "52 g/day",
+                    "19 g/day"
+                ],
+                answer: 1,
+                explanation: "Page 28"
+            },
+            {
+                question: "Total water intake for adolescent boys aged 14-18 years is:",
+                options: [
+                    "2.1 L/day",
+                    "2.3 L/day",
+                    "2.4 L/day",
+                    "3.3 L/day"
+                ],
+                answer: 3,
+                explanation: "Page 30"
+            },
+            {
+                question: "During adolescence, growth assessment should use:",
+                options: [
+                    "Adult BMI",
+                    "Weight only",
+                    "Head circumference",
+                    "BMI-for-age"
+                ],
+                answer: 3,
+                explanation: "Page 31"
+            },
+            {
+                question: "The adult RDA for carbohydrate is:",
+                options: [
+                    "60 g/day",
+                    "95 g/day",
+                    "130 g/day",
+                    "175 g/day"
+                ],
+                answer: 2,
+                explanation: "Page 33"
+            },
+            {
+                question: "The commonly used adult RDA for protein is approximately:",
+                options: [
+                    "0.4 g/kg/day",
+                    "0.8 g/kg/day",
+                    "1.5 g/kg/day",
+                    "2.0 g/kg/day"
+                ],
+                answer: 1,
+                explanation: "Page 33"
+            },
+            {
+                question: "The recommended daily fiber intake for adults is:",
+                options: [
+                    "25 g for women and 38 g for men",
+                    "10 g for women and 15 g for men",
+                    "50 g for both sexes",
+                    "5 g for both sexes"
+                ],
+                answer: 0,
+                explanation: "Page 33"
+            },
+            {
+                question: "The iron requirement for adult women is:",
+                options: [
+                    "8 mg/day",
+                    "18 mg/day",
+                    "27 mg/day",
+                    "10 mg/day"
+                ],
+                answer: 1,
+                explanation: "Page 34"
+            },
+            {
+                question: "The potassium requirement for adult men is:",
+                options: [
+                    "2600 mg/day",
+                    "3400 mg/day",
+                    "1500 mg/day",
+                    "4700 mg/day"
+                ],
+                answer: 1,
+                explanation: "Page 34"
+            },
+            {
+                question: "Additional energy required during the second trimester of pregnancy is approximately:",
+                options: [
+                    "No additional energy",
+                    "+450 kcal/day",
+                    "+600 kcal/day",
+                    "+340 kcal/day"
+                ],
+                answer: 3,
+                explanation: "Page 36"
+            },
+            {
+                question: "Additional energy required during the third trimester of pregnancy is approximately:",
+                options: [
+                    "+340 kcal/day",
+                    "+450 kcal/day",
+                    "+550 kcal/day",
+                    "+700 kcal/day"
+                ],
+                answer: 1,
+                explanation: "Page 36"
+            },
+            {
+                question: "The folate requirement during pregnancy is:",
+                options: [
+                    "400 μg DFE/day",
+                    "500 μg DFE/day",
+                    "600 μg DFE/day",
+                    "800 μg DFE/day"
+                ],
+                answer: 2,
+                explanation: "Page 36"
+            },
+            {
+                question: "The iron requirement during pregnancy is:",
+                options: [
+                    "18 mg/day",
+                    "27 mg/day",
+                    "8 mg/day",
+                    "15 mg/day"
+                ],
+                answer: 1,
+                explanation: "Page 36"
+            },
+            {
+                question: "The clinical rule for adult fluid needs is:",
+                options: [
+                    "30-35 mL/kg body weight",
+                    "10-15 mL/kg body weight",
+                    "50-60 mL/kg body weight",
+                    "100 mL/kg body weight"
+                ],
+                answer: 0,
+                explanation: "Page 37"
+            },
+            {
+                question: "A BMI of 25-29.9 kg/m² is classified as:",
+                options: [
+                    "Underweight",
+                    "Normal weight",
+                    "Overweight",
+                    "Obesity"
+                ],
+                answer: 2,
+                explanation: "Page 38"
+            },
+            {
+                question: "A commonly used clinical protein target for many healthy older adults is approximately:",
+                options: [
+                    "0.4-0.6 g/kg/day",
+                    "1-1.2 g/kg/day",
+                    "2-2.5 g/kg/day",
+                    "3 g/kg/day"
+                ],
+                answer: 1,
+                explanation: "Page 41"
+            },
+            {
+                question: "Why do older adults have an increased risk of vitamin B12 deficiency?",
+                options: [
+                    "Reduced gastric acid and impaired absorption",
+                    "Increased renal excretion only",
+                    "Excessive dietary intake",
+                    "Increased gastric acid secretion"
+                ],
+                answer: 0,
+                explanation: "Page 43"
+            },
+            {
+                question: "For adults over 70 years, the recommended vitamin D intake is:",
+                options: [
+                    "400 IU/day",
+                    "600 IU/day",
+                    "800 IU/day",
+                    "1000 IU/day"
+                ],
+                answer: 2,
+                explanation: "Page 44"
+            },
+            {
+                question: "The mid-parental height formula for boys is:",
+                options: [
+                    "(Father's height + Mother's height + 13 cm) ÷ 2",
+                    "(Father's height + Mother's height - 13 cm) ÷ 2",
+                    "Father's height + Mother's height + 13 cm",
+                    "Father's height - Mother's height + 13 cm"
+                ],
+                answer: 0,
+                explanation: "Page 55"
+            },
+            {
+                question: "The Mifflin-St Jeor equation for resting energy expenditure in males is:",
+                options: [
+                    "REE = (10 × weight kg) + (6.25 × height cm) - (5 × age) + 5",
+                    "REE = (10 × weight kg) + (6.25 × height cm) - (5 × age) - 161",
+                    "REE = (13.384 × weight kg) + 692.6",
+                    "REE = (22.706 × weight kg) + 504.3"
+                ],
+                answer: 0,
+                explanation: "Page 54"
+            }
+        ];
+
+        // Function to shuffle an array (Fisher-Yates algorithm)
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        // Function to create a randomized version of the quiz data
+        function createRandomizedQuizData() {
+            const randomizedData = [];
+            
+            originalQuizData.forEach(question => {
+                // Create a copy of the original question
+                const randomizedQuestion = {
+                    question: question.question,
+                    options: [...question.options], // Copy options array
+                    originalAnswer: question.answer, // Store original answer index
+                    explanation: question.explanation
+                };
+                
+                // Create an array of indices [0, 1, 2, 3]
+                const indices = [0, 1, 2, 3];
+                
+                // Shuffle the indices
+                shuffleArray(indices);
+                
+                // Create a new options array with shuffled order
+                const shuffledOptions = indices.map(index => question.options[index]);
+                
+                // Find the new position of the correct answer
+                const newAnswerIndex = indices.indexOf(question.answer);
+                
+                // Update the question with shuffled options and new answer
+                randomizedQuestion.options = shuffledOptions;
+                randomizedQuestion.answer = newAnswerIndex;
+                
+                randomizedData.push(randomizedQuestion);
+            });
+            
+            return randomizedData;
+        }
+
+        // Create randomized quiz data
+        let quizData = createRandomizedQuizData();
+
+        // Quiz state variables
+        let currentQuestion = 0;
+        let score = 0;
+        let userAnswers = new Array(quizData.length).fill(null);
+        let incorrectQuestions = [];
+
+        // DOM elements
+        const quizContainer = document.getElementById('quiz-container');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const progressBar = document.getElementById('progress-bar');
+        const currentQuestionEl = document.getElementById('current-question');
+        const totalQuestionsEl = document.getElementById('total-questions');
+        const scoreEl = document.getElementById('score');
+        const totalScoreEl = document.getElementById('total-score');
+        const resultsContainer = document.getElementById('results');
+        const finalScoreEl = document.getElementById('final-score');
+        const performanceMessageEl = document.getElementById('performance-message');
+        const restartBtn = document.getElementById('restart-btn');
+        const reviewBtn = document.getElementById('review-btn');
+        const reviewSection = document.getElementById('review-section');
+        const incorrectQuestionsList = document.getElementById('incorrect-questions-list');
+        const darkModeToggle = document.getElementById('dark-mode-toggle');
+        const lightText = document.querySelector('.light-text');
+        const darkText = document.querySelector('.dark-text');
+
+        // Initialize quiz
+        function initQuiz() {
+            totalQuestionsEl.textContent = quizData.length;
+            totalScoreEl.textContent = quizData.length;
+            showQuestion();
+            updateProgressBar();
+            
+            // Initialize dark mode based on system preference
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                document.body.classList.add('dark-mode');
+                darkModeToggle.checked = true;
+                updateToggleText(true);
+            } else {
+                updateToggleText(false);
+            }
+            
+            // Event listeners
+            prevBtn.addEventListener('click', showPreviousQuestion);
+            nextBtn.addEventListener('click', showNextQuestion);
+            restartBtn.addEventListener('click', restartQuiz);
+            reviewBtn.addEventListener('click', showIncorrectQuestions);
+            darkModeToggle.addEventListener('change', toggleDarkMode);
+        }
+
+        // Toggle dark mode
+        function toggleDarkMode() {
+            const isDarkMode = darkModeToggle.checked;
+            document.body.classList.toggle('dark-mode', isDarkMode);
+            updateToggleText(isDarkMode);
+        }
+
+        // Update toggle text opacity
+        function updateToggleText(isDarkMode) {
+            if (isDarkMode) {
+                lightText.style.opacity = '0.5';
+                darkText.style.opacity = '1';
+            } else {
+                lightText.style.opacity = '1';
+                darkText.style.opacity = '0.5';
+            }
+        }
+
+        // Show current question
+        function showQuestion() {
+            currentQuestionEl.textContent = currentQuestion + 1;
+            scoreEl.textContent = score;
+            
+            const question = quizData[currentQuestion];
+            let optionsHTML = '';
+            
+            question.options.forEach((option, index) => {
+                let optionClass = 'option';
+                if (userAnswers[currentQuestion] === index) {
+                    optionClass += ' selected';
+                    if (index === question.answer) {
+                        optionClass += ' correct';
+                    } else {
+                        optionClass += ' incorrect';
+                    }
+                }
+                
+                optionsHTML += `
+                    <div class="${optionClass}" data-index="${index}">
+                        ${String.fromCharCode(65 + index)}) ${option}
+                    </div>
+                `;
+            });
+            
+            let feedbackHTML = '';
+            if (userAnswers[currentQuestion] !== null) {
+                const isCorrect = userAnswers[currentQuestion] === question.answer;
+                const correctLetter = String.fromCharCode(65 + question.answer);
+                const correctAnswerText = question.options[question.answer];
+                
+                feedbackHTML = `
+                    <div class="feedback ${isCorrect ? 'correct' : 'incorrect'}">
+                        ${isCorrect ? '✓ Correct!' : '✗ Incorrect!'} 
+                        ${!isCorrect ? `Correct answer: ${correctLetter}) ${correctAnswerText}` : ''}
+                        ${question.explanation ? `<br><br>Explanation: ${question.explanation}` : ''}
+                    </div>
+                `;
+            }
+            
+            quizContainer.innerHTML = `
+                <div class="question">
+                    <div class="question-number">Question ${currentQuestion + 1}/${quizData.length}</div>
+                    <div class="question-text">${question.question}</div>
+                    <div class="options">${optionsHTML}</div>
+                    ${feedbackHTML}
+                </div>
+            `;
+            
+            // Add event listeners to options
+            const optionElements = quizContainer.querySelectorAll('.option');
+            optionElements.forEach(option => {
+                option.addEventListener('click', selectOption);
+            });
+            
+            // Update navigation buttons
+            prevBtn.disabled = currentQuestion === 0;
+            nextBtn.textContent = currentQuestion === quizData.length - 1 ? 'Finish Quiz' : 'Next';
+        }
+
+        // Select an option
+        function selectOption(e) {
+            if (userAnswers[currentQuestion] !== null) return; // Already answered
+            
+            const selectedOption = e.currentTarget;
+            const selectedIndex = parseInt(selectedOption.dataset.index);
+            
+            userAnswers[currentQuestion] = selectedIndex;
+            
+            // Check if answer is correct
+            if (selectedIndex === quizData[currentQuestion].answer) {
+                score++;
+                scoreEl.textContent = score;
+            } else {
+                // Add to incorrect questions list
+                incorrectQuestions.push({
+                    question: quizData[currentQuestion].question,
+                    userAnswer: selectedIndex,
+                    correctAnswer: quizData[currentQuestion].answer,
+                    options: quizData[currentQuestion].options,
+                    explanation: quizData[currentQuestion].explanation,
+                    questionNumber: currentQuestion + 1
+                });
+            }
+            
+            showQuestion();
+            updateProgressBar();
+        }
+
+        // Show next question
+        function showNextQuestion() {
+            if (currentQuestion < quizData.length - 1) {
+                currentQuestion++;
+                showQuestion();
+            } else {
+                showResults();
+            }
+        }
+
+        // Show previous question
+        function showPreviousQuestion() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                showQuestion();
+            }
+        }
+
+        // Update progress bar
+        function updateProgressBar() {
+            const progress = ((currentQuestion + 1) / quizData.length) * 100;
+            progressBar.style.width = `${progress}%`;
+        }
+
+        // Show results
+        function showResults() {
+            quizContainer.style.display = 'none';
+            document.querySelector('.navigation').style.display = 'none';
+            document.querySelector('.progress-container').style.display = 'none';
+            document.querySelector('.stats').style.display = 'none';
+            
+            finalScoreEl.textContent = score;
+            
+            // Performance message
+            const percentage = (score / quizData.length) * 100;
+            let message = '';
+            if (percentage >= 80) {
+                message = 'Excellent! You have a strong understanding of Nutrition Through Life.';
+            } else if (percentage >= 60) {
+                message = 'Good job! You have a solid grasp of the material.';
+            } else if (percentage >= 40) {
+                message = 'Not bad! Review the material and try again.';
+            } else {
+                message = 'Keep studying! Review the lectures and try again.';
+            }
+            
+            performanceMessageEl.textContent = message;
+            resultsContainer.style.display = 'block';
+            
+            // Show review button only if there are incorrect answers
+            if (incorrectQuestions.length > 0) {
+                reviewBtn.style.display = 'inline-block';
+            } else {
+                reviewBtn.style.display = 'none';
+            }
+        }
+
+        // Show incorrect questions
+        function showIncorrectQuestions() {
+            resultsContainer.style.display = 'none';
+            reviewSection.style.display = 'block';
+            
+            let incorrectHTML = '';
+            incorrectQuestions.forEach((item, index) => {
+                const correctLetter = String.fromCharCode(65 + item.correctAnswer);
+                const userLetter = String.fromCharCode(65 + item.userAnswer);
+                
+                incorrectHTML += `
+                    <div class="review-question">
+                        <div class="review-question-number">Question ${item.questionNumber}</div>
+                        <div class="review-question-text">${item.question}</div>
+                        <div>Your answer: ${userLetter}) ${item.options[item.userAnswer]}</div>
+                        <div class="review-answer review-correct">Correct answer: ${correctLetter}) ${item.options[item.correctAnswer]}</div>
+                        ${item.explanation ? `<div class="review-explanation">${item.explanation}</div>` : ''}
+                    </div>
+                `;
+            });
+            
+            incorrectQuestionsList.innerHTML = incorrectHTML;
+        }
+
+        // Restart quiz
+        function restartQuiz() {
+            currentQuestion = 0;
+            score = 0;
+            userAnswers = new Array(quizData.length).fill(null);
+            incorrectQuestions = [];
+            
+            // Re-randomize the quiz data when restarting
+            quizData = createRandomizedQuizData();
+            
+            quizContainer.style.display = 'block';
+            document.querySelector('.navigation').style.display = 'flex';
+            document.querySelector('.progress-container').style.display = 'block';
+            document.querySelector('.stats').style.display = 'flex';
+            resultsContainer.style.display = 'none';
+            reviewSection.style.display = 'none';
+            
+            showQuestion();
+            updateProgressBar();
+        }
+
+        // Initialize the quiz when the page loads
+        window.onload = initQuiz;
+    </script>
+</body>
+</html>
